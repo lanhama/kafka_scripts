@@ -1,0 +1,27 @@
+docker pull bitnami/zookeeper
+docker pull bitnami/kafka
+
+
+https://hub.docker.com/_/zookeeper
+
+docker network create app-tier --driver bridge
+
+
+docker run -d --name zookeeper-server \
+    --network app-tier \
+    -e ALLOW_ANONYMOUS_LOGIN=yes \
+    -e KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT \
+    -e KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+    -e KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093 \
+    bitnami/zookeeper
+
+
+docker run -d --name kafka-server \
+    --network app-tier \
+    -e ALLOW_PLAINTEXT_LISTENER=yes \
+    -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181 \
+     bitnami/kafka
+
+
+
+
