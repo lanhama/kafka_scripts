@@ -1,0 +1,1 @@
+docker run -t --rm --network app-tier -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181 bitnami/kafka:latest kafka-topics.sh --list  --zookeeper zookeeper-server:2181
