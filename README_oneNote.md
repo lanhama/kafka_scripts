@@ -1,62 +1,40 @@
-<h2> Running Apache Kafka and OpenFaas locally on a Kubernetes cluster: </h2>
+ Running Apache Kafka and OpenFaas locally on a Kubernetes cluster:
 
 
 If you need a centOS 7 VM, this one (the one that's 2ish GB) comes preconfigured and is pretty nice:
 https://www.linuxvmimages.com/images/centos-7/
 
-<hr>
 
 <h3> install Docker: </h3>
 
 1. run as root. If running centos 7 with linuxvmimages.com image, password is "linuxvmimages.com"
-```bash
-su
-```
-2. update system
-```bash
-yum update -y
-```
-3. add docker repo
-```bash
-curl -fsSl https://get.docker.com | sh;
- ```
-4. install Docker
-```bash
-yum install docker-engine -y
-```
+`su`
 
-5. start docker
-```bash
-dockerd
-```
+2. update system
+`yum update -y`
+
+3. add docker repo
+`curl -fsSl https://get.docker.com | sh;`
+
+4. install Docker
+`yum install docker-engine -y`
+
+5. start docker daemon
+`dockerd`
 
 6. verify that docker is running
-```bash
-docker run hello-world
-```
+`docker run hello-world`
 
 This will start a container instance of hello-world, which can be seen seen by running:
-```bash
-docker container ls -a
-```
+`docker container ls -a`
 
-<hr>
+install kubernetes:
 
+`export VER=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)`
 
-<h2>install kubernetes:</h2>
+`curl -LO https://storage.googleapis.com/kubernetes-release/release/$VER/bin/linux/amd64/kubectl`
 
-```bash
-export VER=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-```
-
-```bash
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$VER/bin/linux/amd64/kubectl
-```
-
-```bash
-chmod +x kubectl
-```
-<hr>
+`chmod +x kubectl`
 
 <h2> install go (needed to install k3d) </h2>
 
